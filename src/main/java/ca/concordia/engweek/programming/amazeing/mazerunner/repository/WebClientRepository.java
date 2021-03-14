@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
 
 public class WebClientRepository {
     //Configuring client with base uri
-    WebClient client = WebClient.create("https://51.222.158.215:5001/Player");
+    WebClient client = WebClient.create("http://51.222.158.215:5001/Player");
 
 
     /**
@@ -19,7 +19,7 @@ public class WebClientRepository {
         return client.post()
                 .uri("/StartTrainingGame")
                 .header("Authorization", "Bearer 28526e68a1625a2abd4ac6dfba4dd102")
-                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(int.class);
     }
@@ -30,13 +30,14 @@ public class WebClientRepository {
      * @param direction is the input sent to the server by post request
      * @return the value that the server responds to the REST Api with
      */
-    public Mono<Character> movementRequest(char direction) {
+    public Mono<String> movementRequest(char direction) {
         String body = String.format("{\"MoveDirection\": \"%s\"}", direction);
         return client.post()
-                .uri("/DoMove").header("Authorization", "Bearer 28526e68a1625a2abd4ac6dfba4dd102")
+                .uri("/DoMove")
+                .header("Authorization", "Bearer 28526e68a1625a2abd4ac6dfba4dd102")
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(body))
-                .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(char.class);
+                .bodyToMono(String.class);
     }
 }
