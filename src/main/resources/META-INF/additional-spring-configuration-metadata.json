@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "mazerunner.api.bearertoken",
+      "type": "java.lang.String",
+      "description": "Bearer token used to make API calls"
+    }
+  ] }
