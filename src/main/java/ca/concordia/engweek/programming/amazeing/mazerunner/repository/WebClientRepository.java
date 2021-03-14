@@ -5,6 +5,8 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.nio.charset.StandardCharsets;
+
 public class WebClientRepository {
     //Configuring client with base uri
     static WebClient client = WebClient.create("http://51.222.158.215:5001/Player");
@@ -19,6 +21,7 @@ public class WebClientRepository {
                 .uri("/StartTrainingGame")
                 .header("Authorization", "Bearer 28526e68a1625a2abd4ac6dfba4dd102")
                 .contentType(MediaType.APPLICATION_JSON)
+                .acceptCharset(StandardCharsets.UTF_8)
                 .retrieve()
                 .bodyToMono(String.class);
     }
@@ -35,6 +38,7 @@ public class WebClientRepository {
                 .uri("/DoMove")
                 .header("Authorization", "Bearer 28526e68a1625a2abd4ac6dfba4dd102")
                 .contentType(MediaType.APPLICATION_JSON)
+                .acceptCharset(StandardCharsets.UTF_8)
                 .body(BodyInserters.fromValue(body))
                 .retrieve()
                 .bodyToMono(String.class);

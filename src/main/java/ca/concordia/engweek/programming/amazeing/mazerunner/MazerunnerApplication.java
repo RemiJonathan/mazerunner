@@ -12,6 +12,6 @@ public class MazerunnerApplication {
         System.out.println("--------------------------------------------------------");
         mazerunnerAlgorithm.testWebClient();
         System.out.println("--------------------------------------------------------");
-
+        mazerunnerAlgorithm.gameLoop();
     }
 }
