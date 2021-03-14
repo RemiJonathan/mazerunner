@@ -14,13 +14,13 @@ public class WebClientRepository {
      *
      * @return the game id
      */
-    public static Mono<Integer> startGame() {
+    public static Mono<String> startGame() {
         return client.post()
                 .uri("/StartTrainingGame")
                 .header("Authorization", "Bearer 28526e68a1625a2abd4ac6dfba4dd102")
                 .contentType(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(int.class);
+                .bodyToMono(String.class);
     }
 
     /**
