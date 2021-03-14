@@ -11,23 +11,24 @@ public class MazerunnerAlgorithm {
     int checkDir = 1; //0: north, 1: west, 2: south, 3:east
     int[] coord = new int[2];
 
-    public char goLeft(){
+    public char goLeft() {
         return wall;
     }
 
-    public char goRight(){
+    public char goRight() {
         return wall;
     }
 
-    public char goUp(){
+    public char goUp() {
         return moved;
     }
 
-    public char goDown(){
+    public char goDown() {
         return moved;
     }
 
-    public void gameLoop(){
+    public void gameLoop() {
+        
         char output;
         coord[0] = 1;
         coord[1] = 1;
@@ -38,27 +39,27 @@ public class MazerunnerAlgorithm {
 
                 unitCheck(output, true);
                 // hit a wall
-                if(output == wall){
+                if (output == wall) {
                     output = move(moveDir);
-                    if(output == wall){
+                    if (output == wall) {
                         // Change direction of movement --> go right, hug down "rotate 90 degrees" (checkdir + 1) (movedir +1)
-                    }else if(output == key){
+                    } else if (output == key) {
                         // backtrack one step (checkdir +2) AND continue in moveDir
                         // move(checkdir +2)
-                    }else if(output == closedDoor){
+                    } else if (output == closedDoor) {
                         // store location of door, keep moving in same direction
-                    } else if(output == openedDoor){
+                    } else if (output == openedDoor) {
                         // change movedir to the checkdir then change checkdir
                     }
                     // if we reached here, then we got ' ' successfully and moved
                     continue;
-                }else if(output == key){
+                } else if (output == key) {
                     // backtrack + one move in moveDir
                     // backtrack one step (checkdir +2) AND continue in moveDir
                     // move(checkdir +2)
-                }else if(output == closedDoor){
+                } else if (output == closedDoor) {
                     // store location of door, keep moving in same direction
-                }else if(output == openedDoor){
+                } else if (output == openedDoor) {
                     // change movedir to the checkdir then change checkdir
                 }
                 // hug wall side is empty space
@@ -70,9 +71,9 @@ public class MazerunnerAlgorithm {
         }
     }
 
-    public char move(int dir){
+    public char move(int dir) {
         char output;
-        switch(dir){
+        switch (dir) {
             case 0:
                 output = goUp();
                 break;
@@ -88,23 +89,23 @@ public class MazerunnerAlgorithm {
         return output;
     }
 
-    public void unitCheck(char out, boolean hug){
+    public void unitCheck(char out, boolean hug) {
         // checked hug-wall, found wall
-        if(out == wall && hug){
+        if (out == wall && hug) {
             // move to expected empty space
             out = move(moveDir);
             unitCheck(out, false);
         }
         // checked moveDir, found wall
-        else if(out == wall && !hug){
+        else if (out == wall && !hug) {
             // Change direction of movement --> go right, hug down "rotate 90 degrees" (checkdir + 1) (movedir +1)
 
-        }else if(out == key){
+        } else if (out == key) {
             // backtrack one step (checkdir +2) AND continue in moveDir
             // move(checkdir +2)
-        }else if(out == closedDoor){
+        } else if (out == closedDoor) {
             // store location of door, keep moving in same direction
-        } else if(out == openedDoor){
+        } else if (out == openedDoor) {
             // change movedir to the checkdir then change checkdir
         }
         // if we reached here, then we got ' ' successfully and moved
