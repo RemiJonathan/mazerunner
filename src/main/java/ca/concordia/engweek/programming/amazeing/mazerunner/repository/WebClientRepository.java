@@ -5,23 +5,25 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.nio.charset.StandardCharsets;
+
 public class WebClientRepository {
     //Configuring client with base uri
-    WebClient client = WebClient.create("https://51.222.158.215:5001/Player");
-
+    static WebClient client = WebClient.create("http://51.222.158.215:5001/Player");
 
     /**
      * Method use to make a call to the REST Api in order to start a game
      *
      * @return the game id
      */
-    public Mono<Integer> startGame() {
+    public static Mono<String> startGame() {
         return client.post()
                 .uri("/StartTrainingGame")
                 .header("Authorization", "Bearer 28526e68a1625a2abd4ac6dfba4dd102")
-                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .acceptCharset(StandardCharsets.UTF_8)
                 .retrieve()
-                .bodyToMono(int.class);
+                .bodyToMono(String.class);
     }
 
     /**
@@ -30,13 +32,15 @@ public class WebClientRepository {
      * @param direction is the input sent to the server by post request
      * @return the value that the server responds to the REST Api with
      */
-    public Mono<Character> movementRequest(char direction) {
+    public static Mono<String> movementRequest(char direction) {
         String body = String.format("{\"MoveDirection\": \"%s\"}", direction);
         return client.post()
-                .uri("/DoMove").header("Authorization", "Bearer 28526e68a1625a2abd4ac6dfba4dd102")
+                .uri("/DoMove")
+                .header("Authorization", "Bearer 28526e68a1625a2abd4ac6dfba4dd102")
+                .contentType(MediaType.APPLICATION_JSON)
+                .acceptCharset(StandardCharsets.UTF_8)
                 .body(BodyInserters.fromValue(body))
-                .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(char.class);
+                .bodyToMono(String.class);
     }
 }

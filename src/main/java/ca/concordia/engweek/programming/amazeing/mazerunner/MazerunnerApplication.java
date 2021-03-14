@@ -8,6 +8,10 @@ public class MazerunnerApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MazerunnerApplication.class, args);
+        MazerunnerAlgorithm mazerunnerAlgorithm = new MazerunnerAlgorithm();
+        System.out.println("--------------------------------------------------------");
+        mazerunnerAlgorithm.testWebClient();
+        System.out.println("--------------------------------------------------------");
+        mazerunnerAlgorithm.gameLoop();
     }
-
 }
